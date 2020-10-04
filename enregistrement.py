@@ -28,3 +28,53 @@ def start(update, context):
     context.bot_data["users"][user_id]["nom"] = update.effective_user.name
 
     return update_id(update, context, first_time=True)
+
+def update_id(update, context, first_time=False):
+    #demande prénom
+    update.message.reply_text(ask_data + ("\n"+inform_cancel if not first_time else ""), reply_markup=ReplyKeyboardRemove())
+    update.message.reply_text(ask[PRENOM])
+    return PRENOM
+
+def prenom(update, context):
+    #reçoit le prénom et demande le nom
+    user_id = update.effective_user.id
+    user_input = update.message.text[:30].strip().replace("\n", " ")
+
+    if user_input == "":
+        update.message.reply_text(invalid_input)
+        return PRENOM
+
+    context.bot_data["users"][user_id]["prenom"] = user_input
+    update.message.reply_text(ask[NOM])
+    return NOM
+
+def nom(update, context):
+    #reçoit le nom et demande la promo
+    user_id = update.effective_user.id
+    user_input = update.message.text[:30].strip().replace("\n", " ")
+
+    if user_input == "":
+        update.message.reply_text(invalid_input)
+        return NOM
+
+    context.bot_data["users"][user_id]["nom"] = user_input
+    keyboard = [[KeyboardButton(prom)] for prom in promos]
+    update.message.reply_text(ask[PROMO], reply_markup=ReplyKeyboardMarkup(keyboard, one_time_keyboard=True))
+    return PROMO
+
+def promo(update, context):
+    #reçoit promo et demande pseudo
+    user_id = update.effective_user.id
+    user_input = update.message.text[:30].strip().replace("\n", " ")
+
+    if user_input not in promos:
+        update.message.reply_text(invalid_input)
+        return PROMO
+    context.bot_data["users"][user_id]["promo"] = user_input
+    update.message.reply_text(ask[END])
+
+    user_str = user_id_str(context.bot_data["users"][user_id])
+    update.message.reply_text(recap_data + "\n" + user_str + "\n" + incorrect_data)
+    update.message.reply_text(finish_start)
+
+    return ConversationHandler.END
