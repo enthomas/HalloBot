@@ -6,6 +6,7 @@ from data import *
 from enregistrement import *
 from interaction import *
 from fonctions import *
+from conversations import *
 
 # Slightly modify the Bot class to use a MessageQueue in order to avoid
 # Telegram's flood limits (30 msg/sec)
@@ -46,6 +47,21 @@ persistence = telegram.ext.PicklePersistence(filename='bot_data_pickle')
 updater = telegram.ext.updater.Updater(bot=tgbot, persistence=persistence, use_context=True)
 dispatcher = updater.dispatcher
 
+stop_handler = CommandHandler("stop", stop)
+
+start_handler = ConversationHandler(
+    entry_points = [CommandHandler("start", start),
+                    CommandHandler("start_again", update_id)],
+    states = {PRENOM: [stop_handler, MessageHandler(Filters.text, prenom)],
+              NOM: [stop_handler, MessageHandler(Filters.text, nom)],
+              PROMO: [stop_handler, MessageHandler(Filters.text, promo)]},
+    fallbacks = [stop_handler],
+    name = "start_handler",
+    persistent = True)
+
+dispatcher.add_handler(start_handler)
+
+dispatcher.add_handler(CommandHandler("etat", etat))
 
 
 updater.start_polling()

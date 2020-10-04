@@ -4,6 +4,7 @@ intro = "Bonjour et bienvenu sur ce Bot d'Halloween 🎃 Le BDA te proposes une 
 already_started = "Je vois que tu es déjà inscrit, utilises plutôt la commande /start_again si tu t'es trompé ☺️"
 ask_data = "Avant de commencer on a besoin de savoir qui tu es (pour les cadeaux surtout 😉)"recap_data = "On récapitule :"
 incorrect_data = "Tu peux recommencer avec la commande /start_again s'il y a une erreur."
+success_stop = "Ok on fait une pause. Tu peux utiliser /continuer pour continuer, /etat pour avoir un point sur ton état."
 
 empty_user = { "prénom" : "",
                "nom" : "",
