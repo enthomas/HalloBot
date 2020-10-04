@@ -12,13 +12,13 @@ def etat(update, context):
 
     nbTotems = context.bot_data["users"][user_id]["nbTotemsDétruits"]
     sceaux = ""
-    if !context.bot_data["users"][user_id]["poignetGauche"] :
+    if not context.bot_data["users"][user_id]["poignetGauche"] :
         sceaux += "du poignet gauche\n"
-    if !context.bot_data["users"][user_id]["poignetDroit"] :
+    if not context.bot_data["users"][user_id]["poignetDroit"] :
         sceaux += "du poignet droit\n"
-    if !context.bot_data["users"][user_id]["chevilleGauche"] :
+    if not context.bot_data["users"][user_id]["chevilleGauche"] :
         sceaux += "de la cheville gauche\n"
-    if !context.bot_data["users"][user_id]["chevilleDroite"] :
+    if not context.bot_data["users"][user_id]["chevilleDroite"] :
         sceaux += "de la cheville droite\n"
 
     str = "Tu as réussis à détruire {} totems.\nIl te reste des sceaux démoniques au niveau :\n{}".format(nbTotems, sceaux)

@@ -63,6 +63,15 @@ dispatcher.add_handler(start_handler)
 
 dispatcher.add_handler(CommandHandler("etat", etat))
 
+continue_handler = ConversationHandler(
+    entry_points = [CommandHandler("continuer", continuer)],
+    states = {QCM : [stop_handler, MessageHandler(Filters.text, qcm)],
+              ENIGME : [stop_handler, MessageHandler(Filters.text, enigmes)]},
+    fallbacks = [stop_handler],
+    name = "continue_handler",
+    persistent = True)
+
+dispatcher.add_handler(continue_handler)
 
 updater.start_polling()
 updater.idle()

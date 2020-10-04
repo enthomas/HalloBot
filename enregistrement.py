@@ -44,7 +44,7 @@ def prenom(update, context):
         update.message.reply_text(invalid_input)
         return PRENOM
 
-    context.bot_data["users"][user_id]["prenom"] = user_input
+    context.bot_data["users"][user_id]["prénom"] = user_input
     update.message.reply_text(ask[NOM])
     return NOM
 
@@ -71,10 +71,13 @@ def promo(update, context):
         update.message.reply_text(invalid_input)
         return PROMO
     context.bot_data["users"][user_id]["promo"] = user_input
-    update.message.reply_text(ask[END])
+    update.message.reply_text(ask[FIN])
+    context.bot_data["users"][user_id]["enregistrement"] = time.time()
+    context.bot_data["users"][user_id]["fin"] = time.time()-2
 
     user_str = user_id_str(context.bot_data["users"][user_id])
     update.message.reply_text(recap_data + "\n" + user_str + "\n" + incorrect_data)
     update.message.reply_text(finish_start)
+    print(context.bot_data["users"][user_id]["prénom"])
 
     return ConversationHandler.END
