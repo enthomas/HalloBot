@@ -31,7 +31,7 @@ def start(update, context):
 
 def update_id(update, context, first_time=False):
     #demande prénom
-    update.message.reply_text(ask_data + ("\n"+inform_cancel if not first_time else ""), reply_markup=ReplyKeyboardRemove())
+    update.message.reply_text(ask_data + ("\n"+inform_stop if not first_time else ""), reply_markup=ReplyKeyboardRemove())
     update.message.reply_text(ask[PRENOM])
     return PRENOM
 
@@ -78,6 +78,7 @@ def promo(update, context):
     user_str = user_id_str(context.bot_data["users"][user_id])
     update.message.reply_text(recap_data + "\n" + user_str + "\n" + incorrect_data)
     update.message.reply_text(finish_start)
-    print(context.bot_data["users"][user_id]["prénom"])
+    print(context.bot_data["users"][user_id]["prénom"] + ' ' + context.bot_data["users"][user_id]["nom"] + " s'est inscrit.\n")
+    context.bot.send_message(chat_id=id_BDAmour, text=context.bot_data["users"][user_id]["prénom"] + ' ' + context.bot_data["users"][user_id]["nom"] + " s'est inscrit.")
 
     return ConversationHandler.END

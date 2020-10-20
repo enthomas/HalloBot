@@ -72,6 +72,7 @@ continue_handler = ConversationHandler(
     persistent = True)
 
 dispatcher.add_handler(continue_handler)
+dispatcher.add_handler(CommandHandler("bebou", game_recap))
 
 updater.start_polling()
 updater.idle()

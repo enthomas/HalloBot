@@ -22,5 +22,7 @@ def etat(update, context):
         sceaux += "de la cheville droite\n"
 
     str = "Tu as réussis à détruire {} totems.\nIl te reste des sceaux démoniques au niveau :\n{}".format(nbTotems, sceaux)
+    if context.bot_data["users"][user_id]["fini"] :
+        str = "Tu as déjà réussi à t'échapper une fois !\n" + str
     update.message.reply_text(str, reply_markup=ReplyKeyboardRemove())
     return ConversationHandler.END
